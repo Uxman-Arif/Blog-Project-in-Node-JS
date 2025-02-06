@@ -1,13 +1,12 @@
 const {getuser} = require('../controlers/usertoken');
 
 function authenticateUser(req, res, next) {
-    console.log('basheer')
-    // const token = req.cookies.token;
-    // const user = getuser(token);
-    // if (!user){
-    //     return res.json({msg:'Not Verified!'});
-    // };
-    // req.user = user;
+    const token = req.cookies.token;
+    const user = getuser(token);
+    if (!user){
+        return res.json({msg:'Not Verified!'});
+    };
+    req.user = user;
     next();
 };
 

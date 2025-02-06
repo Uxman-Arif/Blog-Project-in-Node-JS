@@ -14,7 +14,7 @@ app.set('views', path.resolve('./views'));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use(express.urlencoded({extended:false}));
 app.use(express.json());
-app.use('/', routes);
-app.use('/user', authenticateUser, userroutes);
+app.use('/', authenticateUser, routes);
+app.use('/user', userroutes);
 
 app.listen(8000, ()=>console.log('Running Successfully!'))

@@ -4,8 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blogs - Home</title>
+    <link rel="stylesheet" href="/uploads/bootstrap.css">
 </head>
 <body>
     <h1>This is the blog application created by XMN.</h1>
+    <div class="container">
+        <div class="row justify-content-center">
+            <% for (const blog of blogs) { %>   
+                <div class="col-4">
+                    <div class="card">
+                        <img class="card-img-top" src="/uploads/<%= blog.blogpic %>" alt="">
+                        <div class="card-body">
+                            <h5 class="card-title"><%= blog.title %></h5>
+                            <p class="card-text"><%= blog.description %></p>
+                            <p class="card-text"><%= new Date(blog.time).toLocaleString() %></p>
+                            <a href="/blog/<%= blog.id %>" class="btn btn-primary w-100">View Blog</a>
+
+                        </div>
+                    </div>
+                </div>
+            <% } %>
+        </div>
+    </div>
 </body>
 </html>

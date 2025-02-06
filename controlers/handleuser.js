@@ -19,7 +19,6 @@ const upload = multer({ storage: storage });
 async function signup(req, res) {
     if (req.method == 'POST'){
         const data = req.body;
-        console.log(req.file.filename);
         if (!req.file) {
             return res.status(400).send('No file uploaded!');
         }

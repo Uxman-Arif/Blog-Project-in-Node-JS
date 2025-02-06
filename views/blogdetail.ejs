@@ -1,11 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blogs - Detail</title>
+    <title>Blogs - Home</title>
+    <link rel="stylesheet" href="/uploads/bootstrap.css">
 </head>
+
 <body>
-    <h1>This is the blogDetail application created by XMN.</h1>
+    <h1>This is the blog application created by XMN.</h1>
+    <div class="container">
+        <div class=" row">
+            <div class="col-6">
+                <img class="card-img-top" src="/uploads/<%= blog.blogpic %>" alt="">
+            </div>
+            <div class="col-6">
+                <h5 class="">
+                    <%= blog.title %>
+                </h5>
+                <p class="">
+                    <%= blog.description %>
+                </p>
+                <p class="">
+                    <%= new Date(blog.time).toLocaleString() %>
+                </p>
+            </div>
+        </div><hr>
+
+        <div class="row justify-content-center">
+            <div class="col-10">
+                <form action="" method="post">
+                    <label class="fw-bold" for="comment">Share you'r thoughts about this blog:</label><br>
+                    <textarea name="comment" id="comment" rows="6" cols="120"></textarea><br>
+                    <button class="btn btn-primary" type="submit">Post Comment!</button>
+                </form>
+            </div>
+        </div>
+    </div>
 </body>
+
 </html>
