@@ -7,7 +7,18 @@
     <title>Blogs - Home</title>
     <link rel="stylesheet" href="/uploads/bootstrap.css">
 </head>
+<style>
+    .profilepic{
+        width: 50px;
+        height: 50px;
+        border-radius: 50px;
+    }
+    
+    .usercred{
+        line-height: 1px;
+    }
 
+</style>
 <body>
     <h1>This is the blog application created by XMN.</h1>
     <div class="container">
@@ -37,6 +48,25 @@
                 </form>
             </div>
         </div>
+
+        <%for (const comment of comments) { %>
+        <div class="row border m-2 p-2">
+                <div class="col-12">
+                    <div class="row">
+                        <%if (comment.owner.profilepic) {%>
+                            <div class="col-1"><img class="img img-fluid profilepic" src="/uploads/<%= comment.owner.profilepic %>" alt="error"></div>
+                        <% } else { %>
+                            <div class="col-1"><img class="img img-fluid profilepic" src="/uploads/IMG-20241119-WA0132.jpg" alt="error"></div>
+                        <% } %>
+                        <div class="col-8 usercred">
+                            <h4><%= comment.owner.name %></h4>
+                            <span><%= new Date(blog.time).toLocaleString() %></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 ms-4"><%= comment.comment %></div>
+            </div>
+        <% } %>
     </div>
 </body>
 

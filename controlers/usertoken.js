@@ -11,7 +11,7 @@ function postuser(user){
 };
 
 function getuser(token){
-    if (!token)return res.redirect('/signin');
+    // if (!token){return res.json({msg:'provide token'})};
     return jwt.verify(token, secret_key);
 }
 

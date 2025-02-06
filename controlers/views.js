@@ -1,4 +1,6 @@
 const { blogModel, commentModel } = require('../models/Blogmodel');
+const userModel = require('../models/userstore');
+const usermodel = require('../models/userstore');
 const multer = require('multer');
 
 const storage = multer.diskStorage({
@@ -29,6 +31,8 @@ async function createBlog(req, res) {
 async function blogDetail(req, res) {
     const blogid = req.params.id;
     const blog = await blogModel.findOne({_id:blogid});
+    const comments = await commentModel.find({blog: blog._id}).populate('owner', 'name profilepic'); 
+    // const user = await userModel.findById()
     if (req.method==='POST'){
         await commentModel.create({
             blog:blog._id,
@@ -36,7 +40,7 @@ async function blogDetail(req, res) {
             comment:req.body.comment,
         });
     };
-    return res.render('blogdetail', {blog:blog});
+    return res.render('blogdetail', {blog:blog, user:req.user, comments:comments});
 };
 
 module.exports = {

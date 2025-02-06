@@ -35,7 +35,7 @@ async function signin(req, res) {
         if (user) {
             const setcookie = postuser(user);
             res.cookie('token', setcookie);
-            return res.redirect('/');
+            return res.redirect('/home');
         }else{
             return res.json({msg:'invalid credentials'});
         }
@@ -43,8 +43,14 @@ async function signin(req, res) {
     return res.render('signin');
 };
 
+
+function profile(req, res) {
+    const user = req.user;
+    return res.render('profile', {user:user});
+}
 module.exports = {
     signup,
     signin,
     upload,
+    profile,
 }
