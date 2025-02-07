@@ -1,6 +1,4 @@
 const { blogModel, commentModel } = require('../models/Blogmodel');
-const userModel = require('../models/userstore');
-const usermodel = require('../models/userstore');
 const multer = require('multer');
 
 const storage = multer.diskStorage({

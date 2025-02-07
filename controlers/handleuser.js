@@ -1,7 +1,8 @@
 const multer = require('multer');
 const jwt = require('jsonwebtoken');
+const { blogModel, commentModel } = require('../models/Blogmodel');
 const {postuser} = require('./usertoken');
-const usermodel = require('../models/userstore');
+const userModel = require('../models/userstore');
 
 
 const storage = multer.diskStorage({
@@ -22,8 +23,8 @@ async function signup(req, res) {
         if (!req.file) {
             return res.status(400).send('No file uploaded!');
         }
-        await usermodel.create({name:data.name, email:data.email, role:data.role, profilepic:req.file.filename, password:data.password});
-        return res.redirect('/signin');
+        await userModel.create({name:data.name, email:data.email, role:data.role, profilepic:req.file.filename, password:data.password});
+        return res.redirect('/user/signin');
     }
     return res.render('signup');
 };
@@ -31,10 +32,11 @@ async function signup(req, res) {
 async function signin(req, res) {
     if (req.method == 'POST'){
         const data = req.body;
-        const user = await usermodel.findOne({email:data.email, password:data.password});
+        const user = await userModel.findOne({email:data.email});
         if (user) {
             const setcookie = postuser(user);
             res.cookie('token', setcookie);
+            const check_user = userModel.matchPassword(data.email, data.password);
             return res.redirect('/home');
         }else{
             return res.json({msg:'invalid credentials'});
@@ -44,9 +46,11 @@ async function signin(req, res) {
 };
 
 
-function profile(req, res) {
-    const user = req.user;
-    return res.render('profile', {user:user});
+async function profile(req, res) {
+    console.log(req.user._id);
+    const blogs = await blogModel.find({owner: req.user._id}); 
+    console.log(blogs);
+    return res.render('profile', {user:req.user});
 }
 module.exports = {
     signup,
